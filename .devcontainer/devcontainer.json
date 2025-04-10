@@ -9,9 +9,8 @@
             "userGid": "1000",
             "upgradePackages": "true"
         },
-        "ghcr.io/devcontainers/features/cpp:1": {},
         "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-            "packages": "libsdl2-dev,libsdl2-image-dev"
+            "packages": "libsdl2-dev,libsdl2-image-dev,build-essential,cmake,g++,gdb"
         }
     },
     "customizations": {

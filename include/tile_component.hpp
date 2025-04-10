@@ -1,8 +1,8 @@
 #pragma once
-#include "ECS.hpp"
-#include "TransformComponent.hpp"
-#include "SpriteComponent.hpp"
-#include "ColliderComponent.hpp"
+#include "ecs.hpp"
+#include "transform_component.hpp"
+#include "sprite_component.hpp"
+#include "collider_component.hpp"
 
 class TileComponent : public Component {
 public:

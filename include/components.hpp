@@ -8,9 +8,9 @@ class ColliderComponent;
 class TileComponent;
 
 // Then include the actual headers
-#include "ECS.hpp"
-#include "TransformComponent.hpp"
-#include "SpriteComponent.hpp"
-#include "KeyboardController.hpp"
-#include "ColliderComponent.hpp"
-#include "TileComponent.hpp"
+#include "ecs.hpp"
+#include "transform_component.hpp"
+#include "sprite_component.hpp"
+#include "keyboard_controller.hpp"
+#include "collider_component.hpp"
+#include "tile_component.hpp"

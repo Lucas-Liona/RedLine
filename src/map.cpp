@@ -1,5 +1,5 @@
-#include "Map.hpp"
-#include "TextureManager.hpp"
+#include "map.hpp"
+#include "texture_manager.hpp"
 
 #define SIZE 32
 

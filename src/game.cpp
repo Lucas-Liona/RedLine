@@ -1,11 +1,11 @@
-#include "Game.hpp"
+#include "game.hpp"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
-#include "TextureManager.hpp"
-#include "Map.hpp"
-#include "ECS.hpp"
-#include "Components.hpp"
-#include "Vector2D.hpp"
+#include "texture_manager.hpp"
+#include "map.hpp"
+#include "ecs.hpp"
+#include "components.hpp"
+#include "vector2d.hpp"
 #include "hex.h"
 
 Game::Game() : isRunning(false), cnt(0), window(nullptr) {}

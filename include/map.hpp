@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game.hpp"
+#include "game.hpp"
 
 #define ROW 10
 #define COL 5

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Game.hpp"
-#include "ECS.hpp"
-#include "TransformComponent.hpp"
+#include "game.hpp"
+#include "ecs.hpp"
+#include "transform_component.hpp"
 
 // These should be inside the class or made static, fixed in this version
 static bool canJump = true;

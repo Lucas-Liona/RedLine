@@ -1,4 +1,4 @@
-#include "Vector2D.hpp"
+#include "vector2d.hpp"
 
 Vector2D::Vector2D() {
     x = 0.0f;

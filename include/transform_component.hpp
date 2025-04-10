@@ -1,5 +1,5 @@
 #pragma once
-#include "ECS.hpp"
+#include "ecs.hpp"
 #include "Vector2D.hpp"
 #include <math.h>
 
