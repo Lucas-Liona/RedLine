@@ -5,7 +5,7 @@
 #include "map.hpp"
 #include "ecs.hpp"
 #include "components.hpp"
-#include "vector2d.hpp"
+#include "vector2D.hpp"
 #include "hex.h"
 
 Game::Game() : isRunning(false), cnt(0), window(nullptr) {}
