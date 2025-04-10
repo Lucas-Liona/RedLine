@@ -1,0 +1,20 @@
+# Build results
+build/
+redline
+*.o
+*.obj
+*.exe
+
+# Visual Studio Code
+.vscode/
+.vs/
+
+# macOS specific files
+.DS_Store
+
+# Backup files
+*~
+*.bak
+
+# Log files
+*.log
