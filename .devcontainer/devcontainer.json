@@ -1,18 +1,25 @@
 {
     "name": "Redline Game Environment",
-    "image": "mcr.microsoft.com/devcontainers/cpp:debian",
-    "features": {},
-    "runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
-    "onCreateCommand": "apt-get update && apt-get install -y libsdl2-dev libsdl2-image-dev",
-    "postCreateCommand": "make",
-    "settings": {
-        "editor.formatOnSave": true
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": "true",
+            "username": "vscode",
+            "userUid": "1000",
+            "userGid": "1000",
+            "upgradePackages": "true"
+        },
+        "ghcr.io/devcontainers/features/cpp:1": {},
+        "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+            "packages": "libsdl2-dev,libsdl2-image-dev"
+        }
     },
-    "extensions": [
-        "ms-vscode.cpptools",
-        "ms-vscode.cmake-tools"
-    ],
-    "forwardPorts": [5901],
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/redline,type=bind",
-    "workspaceFolder": "/workspaces/redline"
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools"
+            ]
+        }
+    }
 }

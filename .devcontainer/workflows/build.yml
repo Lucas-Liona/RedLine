@@ -1,0 +1,32 @@
+name: Build Redline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libsdl2-dev libsdl2-image-dev
+        
+    - name: Setup directory structure
+      run: |
+        mkdir -p build
+        
+    - name: Build
+      run: |
+        cd build
+        cmake ..
+        make
+      
+    - name: Check if binary was created
+      run: test -f build/redline
