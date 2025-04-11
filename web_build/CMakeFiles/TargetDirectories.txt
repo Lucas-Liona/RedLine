@@ -1,0 +1,3 @@
+/home/lucas/redline/web_build/CMakeFiles/redline.dir
+/home/lucas/redline/web_build/CMakeFiles/edit_cache.dir
+/home/lucas/redline/web_build/CMakeFiles/rebuild_cache.dir

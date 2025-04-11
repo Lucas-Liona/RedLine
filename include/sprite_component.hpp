@@ -1,7 +1,7 @@
 #pragma once
 
 #include "components.hpp"
-#include "SDL2/SDL.h"
+#include "platform/sdl_includes.hpp"
 #include "texture_manager.hpp"
 #include "transform_component.hpp"
 

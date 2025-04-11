@@ -1,16 +1,15 @@
 #include "game.hpp"
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
+#include "platform/sdl_includes.hpp"
 #include "texture_manager.hpp"
 #include "map.hpp"
 #include "ecs.hpp"
 #include "components.hpp"
 #include "vector2D.hpp"
 #include "hex.h"
-#include "web_input.hpp"
-#include "touch_controller.hpp"
 
-
+// Do not include these for now
+// #include "web_input.hpp"
+// #include "touch_controller.hpp"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -47,8 +46,9 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         std::cout << "Subsystems initialized..." << std::endl;
 
-        WebInput::init();
-        TouchController::init();
+        // Remove these for now
+        //WebInput::init();
+        //TouchController::init();
         
         window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
         

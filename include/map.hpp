@@ -1,6 +1,7 @@
 #pragma once
 
 #include "game.hpp"
+#include "platform/sdl_includes.hpp"
 
 #define ROW 10
 #define COL 5

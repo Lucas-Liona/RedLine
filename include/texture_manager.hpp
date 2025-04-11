@@ -1,8 +1,7 @@
 #pragma once
 
 #include "game.hpp"
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
+#include "platform/sdl_includes.hpp"
 
 class TextureManager {
 public:

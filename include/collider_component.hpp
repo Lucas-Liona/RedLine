@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "SDL2/SDL.h"
+#include "platform/sdl_includes.hpp"
 #include "ecs.hpp"
 #include "transform_component.hpp"
 #include "game.hpp"

@@ -1,4 +1,4 @@
-#include "SDL2/SDL.h"
+#include "platform/sdl_includes.hpp"
 #include <iostream>
 #include "game.hpp"
 
@@ -28,12 +28,15 @@ void main_loop() {
 }
 
 int main(int argc, char **argv) {
+    std::cout << "Starting Redline Game..." << std::endl;
+    
     game = new Game();
     
     game->init("Redline", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 800, false);
     
 #ifdef __EMSCRIPTEN__
     // Set up the main loop for Emscripten
+    std::cout << "Running with Emscripten..." << std::endl;
     emscripten_set_main_loop(main_loop, 0, 1);
 #else
     // Regular loop for native builds
