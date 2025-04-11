@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redline Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #222;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .game-container {
+            position: relative;
+            width: 600px;
+            height: 800px;
+            max-width: 100%;
+            max-height: 100vh;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .progress-bar {
+            width: 70%;
+            height: 20px;
+            background-color: #444;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #f00;
+            transition: width 0.3s;
+        }
+
+        .start-button {
+            display: none;
+            padding: 10px 20px;
+            background-color: #f00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .start-button:hover {
+            background-color: #c00;
+        }
+
+        .loading-text {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .emscripten-logo {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="loading" id="loading">
+            <h2>Redline Game</h2>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="loading-text" id="loading-text">Loading...</div>
+            <button class="start-button" id="start-button">Click to Play</button>
+        </div>
+        <canvas id="canvas" tabindex="-1"></canvas>
+    </div>
+
+    <script>
+        var Module = {
+            preRun: [],
+            postRun: [],
+            canvas: document.getElementById('canvas'),
+            totalDependencies: 0,
+            monitorRunDependencies: function(left) {
+                this.totalDependencies = Math.max(this.totalDependencies, left);
+                var progress = document.getElementById('progress');
+                var loadingText = document.getElementById('loading-text');
+                
+                if (left) {
+                    var percent = Math.floor(((this.totalDependencies - left) / this.totalDependencies) * 100);
+                    progress.style.width = percent + '%';
+                    loadingText.textContent = 'Loading... ' + percent + '%';
+                } else {
+                    progress.style.width = '100%';
+                    loadingText.textContent = 'Click to start';
+                    
+                    // Show start button when loaded
+                    document.getElementById('start-button').style.display = 'block';
+                }
+            },
+            onRuntimeInitialized: function() {
+                // Audio in browsers requires user interaction before playback
+                document.getElementById('start-button').addEventListener('click', function() {
+                    // Hide loading screen
+                    document.getElementById('loading').style.display = 'none';
+                    
+                    // Focus canvas for keyboard input
+                    Module.canvas.focus();
+                });
+            }
+        };
+    </script>
+    
+    <!-- Responsive canvas script -->
+    <script src="responsive_canvas.js"></script>
+    {{{ SCRIPT }}}
+</body>
+</html>

@@ -1,0 +1,32 @@
+#pragma once
+
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#include <emscripten/html5.h>
+#endif
+
+// Helper class to handle input focus issues in the web environment
+class WebInput {
+public:
+    static void init() {
+#ifdef __EMSCRIPTEN__
+        // Add a click handler to focus the canvas for keyboard input
+        EM_ASM(
+            // When the canvas is clicked, ensure it has focus for keyboard events
+            Module.canvas.addEventListener('click', function() {
+                Module.canvas.focus();
+            });
+            
+            // Prevent default behavior for arrow keys and space to avoid page scrolling
+            document.addEventListener('keydown', function(e) {
+                if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                    e.preventDefault();
+                }
+            }, false);
+        );
+    }
+#else
+        // No special handling needed for native builds
+    }
+#endif
+};

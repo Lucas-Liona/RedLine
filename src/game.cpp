@@ -7,10 +7,23 @@
 #include "components.hpp"
 #include "vector2D.hpp"
 #include "hex.h"
+#include "web_input.hpp"
+#include "touch_controller.hpp"
+
+
+
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
 Game::Game() : isRunning(false), cnt(0), window(nullptr) {}
 
-Game::~Game() {}
+Game::~Game() {
+    // In Emscripten, we let the browser handle cleanup
+#ifndef __EMSCRIPTEN__
+    clean();
+#endif
+}
 
 Map* map;
 SDL_Event Game::event;
@@ -33,6 +46,9 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         std::cout << "Subsystems initialized..." << std::endl;
+
+        WebInput::init();
+        TouchController::init();
         
         window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
         
@@ -82,6 +98,11 @@ void Game::handleEvents()
     switch(event.type) {
         case SDL_QUIT:
             isRunning = false;
+#ifdef __EMSCRIPTEN__
+            // In Emscripten, we need to explicitly call our clean function and exit the main loop
+            clean();
+            emscripten_cancel_main_loop();
+#endif
             break;
         default:
             break;
@@ -127,7 +148,7 @@ void Game::render()
 
     switch (state) {
     case 0:
-        // map->DrawMap();
+        map->DrawMap();
         manager.draw();
         break;
     case 1:
@@ -141,8 +162,21 @@ void Game::render()
 
 void Game::clean()
 {
-    SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
+    if (map) {
+        delete map;
+        map = nullptr;
+    }
+    
+    if (renderer) {
+        SDL_DestroyRenderer(renderer);
+        renderer = nullptr;
+    }
+    
+    if (window) {
+        SDL_DestroyWindow(window);
+        window = nullptr;
+    }
+    
     IMG_Quit();
     SDL_Quit();
     
