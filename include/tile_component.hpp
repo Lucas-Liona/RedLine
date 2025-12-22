@@ -47,8 +47,11 @@ public:
         );
         transform = &entity->getComponent<TransformComponent>();
         
-        entity->addComponent<SpriteComponent>(path);
-        sprite = &entity->getComponent<SpriteComponent>();
+        // Only add sprite if we have a valid path
+        if (path != nullptr && path[0] != '\0') {
+            entity->addComponent<SpriteComponent>(path);
+            sprite = &entity->getComponent<SpriteComponent>();
+        }
         
         if (tileID == 2) {
             entity->addComponent<ColliderComponent>("pole");
