@@ -10,6 +10,8 @@ static bool canAttack = true;
 static const int maxjumps = 3;
 static int jumps = 3;
 
+static int speed = 2.3;
+
 static Uint32 callback(Uint32 interval, void* param) {
     if (jumps < maxjumps) {
         jumps++;
@@ -56,16 +58,16 @@ public:
         }
         
         if (keystates[SDL_SCANCODE_UP] || keystates[SDL_SCANCODE_W]) {
-            transform->acceleration.y += -1;
+            transform->acceleration.y += -speed;
         }
         if (keystates[SDL_SCANCODE_LEFT] || keystates[SDL_SCANCODE_A]) {
-            transform->acceleration.x += -1;
+            transform->acceleration.x += -speed;
         }
         if (keystates[SDL_SCANCODE_DOWN] || keystates[SDL_SCANCODE_S]) {
-            transform->acceleration.y += 1;
+            transform->acceleration.y += speed;
         }
         if (keystates[SDL_SCANCODE_RIGHT] || keystates[SDL_SCANCODE_D]) {
-            transform->acceleration.x += 1;
+            transform->acceleration.x += speed;
         }
 
         if (keystates[SDL_SCANCODE_SPACE]) {

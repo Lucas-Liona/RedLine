@@ -77,14 +77,15 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 void Game::handleEvents()
 {
     SDL_EventState(SDL_MOUSEMOTION, SDL_IGNORE);
-    SDL_PollEvent(&event);
-    
-    switch(event.type) {
-        case SDL_QUIT:
-            isRunning = false;
-            break;
-        default:
-            break;
+
+    while (SDL_PollEvent(&event)) {
+        switch(event.type) {
+            case SDL_QUIT:
+                isRunning = false;
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -96,21 +97,24 @@ void Game::update()
         manager.update();
         
         for (auto cc : colliders) {
-            if(SDL_HasIntersection(&(player.getComponent<ColliderComponent>().collider), &(cc->collider))) {
-                std::cout << cc->tag << std::endl;
-                
-                Vector2D colpos = cc->transform->position;
-                Vector2D direction = player.getComponent<TransformComponent>().acceleration;
-                Vector2D position = player.getComponent<TransformComponent>().position;
-                
-                if ((colpos.x - position.x > 0) == (direction.x > 0)) { // Same sign
-                    player.getComponent<TransformComponent>().velocity.x = 0;
-                    player.getComponent<TransformComponent>().acceleration.x = 0;
-                }
-                
-                if ((colpos.y - position.y > 0) == (direction.y > 0)) { // Same sign
-                    player.getComponent<TransformComponent>().velocity.y = 0;
-                    player.getComponent<TransformComponent>().acceleration.y = 0;
+            SDL_Rect playerCol = player.getComponent<ColliderComponent>().collider;
+            if(SDL_HasIntersection(&playerCol, &(cc->collider))) {
+                TransformComponent& pt = player.getComponent<TransformComponent>();
+
+                int overlapLeft   = (playerCol.x + playerCol.w) - cc->collider.x;
+                int overlapRight  = (cc->collider.x + cc->collider.w) - playerCol.x;
+                int overlapTop    = (playerCol.y + playerCol.h) - cc->collider.y;
+                int overlapBottom = (cc->collider.y + cc->collider.h) - playerCol.y;
+
+                int minOverlapX = (overlapLeft < overlapRight) ? -overlapLeft : overlapRight;
+                int minOverlapY = (overlapTop < overlapBottom) ? -overlapTop : overlapBottom;
+
+                if (abs(minOverlapX) < abs(minOverlapY)) {
+                    pt.position.x += minOverlapX;
+                    pt.velocity.x = 0;
+                } else {
+                    pt.position.y += minOverlapY;
+                    pt.velocity.y = 0;
                 }
             }
         }
